@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+<html>
+<head>
+    <title>Feedback Page</title>
+   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+{% block content %}
+<style>
+b{
+    font-size: 20px;
+    color: Red;
+}
+</style>
+    <div class="container">
+    <div class="row">
+        <div class="col-md-2">
+           <center><h3 style="color: grey;">News</h3></center>
+          <marquee direction="down" behaviour="scroll" height="800px" width="140%" speed="5" onmouseover="this.stop();" onmouseout="this.start();">
+            <a href="/enquiry/" style="color: blue;">Wipro is Hiring Apply from official site</a><br><br>
+            <a href="/enquiry/" style="color: blue;">Infosys is second round is going to start from official site</a><br><br>
+            <a href="/enquiry/" style="color: blue;">Walkin in janya it solution</a><br><br>
+            <a href="/enquiry/" style="color: blue;">Urgent requiremnet python developer in banglore</a><br><br>
+            <a href="/enquiry/" style="color: blue;">Vacancy in ssc</a>
+          </marquee>
+        </div>
+        <div class="offset-md-1 col-md-6">
+
+            {% if fform %}
+                {% for i in feedbacks %}
+                    {% if i.rating >= 5 and i.rating <= 10 %}
+                        <center><h2 style="color: darkgoldenrod;" >Our Valuable Feedbacks</h2></center>
+                        <b> Name:{{ i.name|capfirst}}</b><br>
+                        Rating:{{ i.rating }}<br>
+                        Date:{{ i.date }}<br>
+                        Feedback:{{ i.feedback }}<br>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <h1>No Data Available</h1>
+           {% endif %}
+        <h2 class="text-center">Please Enter Your Feedback</h2>
+            <form method="POST">
+                {% csrf_token %}
+                {{ fform }}<br><br>
+                <center>
+                <input type="submit" value="Send" class="btn btn-success">
+                <input type="reset" value="Clear" class="btn btn-danger"><br><br>
+                </center>
+            </form>
+        </div>
+    <div class="col-md-3">
+        <center><h3 style="color: grey;">Current Trends In IT </h3><center>
+        <marquee direction="down" behaviour="scroll" height="800px" width="140%" speed="5" onmouseover="this.stop();" onmouseout="this.start();">
+            <a href="/enquiry/"><img src="/static/images/py.png" width="350px" height="250px"  /></a><br><br>
+            <a href="/enquiry/"><img src="/static/images/certified.png" width="350px" height="250px"  /></a><br><br>
+            <a href="/enquiry/"><img src="/static/images/flask.png" width="350px" height="250px"  /></a><br><br>
+            <a href="/enquiry/"><img src="/static/images/django.png" width="350px" height="250px"  /></a><br><br>
+            <a href="/enquiry/"><img src="/static/images/ui.jpg" width="350px" height="250px"  /></a>
+        </marquee>
+    </div>
+    </div>
+    </div>
+{% endblock %}
+</body>
+</html>
